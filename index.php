@@ -1,11 +1,10 @@
 <?php
-
-
-
+  header("Access-Control-Allow-Origin: {localhost:8080}");
+  header('Access-Control-Allow-Credentials: true');
+  header('Access-Control-Max-Age: 86400');    // cache for 1 day
 
   $testvar = "hello world";
   echo $testvar;
-  echo $_SERVER['HTTP_ORIGIN'];
 
   //$name = $_POST['fname'];
 
