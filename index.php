@@ -1,1 +1,6 @@
-echo "hello world";
+<?php
+
+  $testvar = "hello world";
+  echo $testvar;
+
+?>
