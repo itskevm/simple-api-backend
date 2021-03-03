@@ -79,7 +79,6 @@
   
   $dataObj = (object)array("applicant" => "Kevin Matos", "users" => $users);
   $outgoingJSON = json_encode($dataObj);
-  echo "Data prep ended.\n";
   //echo $outgoingJSON . "\n"; // Uncomment to display the custom obj w/ applicant name
 
   $outgoingUrl = 'https://scheduler.luminarycxm.com/api/v1/cleaned/data/test/';
