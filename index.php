@@ -6,13 +6,6 @@
   header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 
   header('Content-type: application/json');
-  
-  echo "Script begun...\n";
-
-  //$json = file_get_contents('php://input');
-  //$data = json_decode($json);
-  //echo $data;
-  //$name = $_POST['fname'];
 
   // This will customize how the incoming JSON obj values are stored/handled
   class User {
@@ -114,7 +107,7 @@
 
   $resp = curl_exec($curl);
   curl_close($curl);
-  var_dump($resp);
+  //var_dump($resp);
   echo $resp;
 
   /*
