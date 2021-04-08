@@ -1,11 +1,24 @@
 <?php
-  header("Access-Control-Allow-Origin: http://localhost:8080");
+  $http_origin = $_SERVER['HTTP_ORIGIN'];
+  if ($http_origin == "http://localhost:8080" || $http_origin == "https://simple-api-call.herokuapp.com/")
+  {  
+      header("Access-Control-Allow-Origin: $http_origin");
+  }
   header('Access-Control-Allow-Credentials: true');
   header('Access-Control-Max-Age: 86400');
   header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
   header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-
+  
   header('Content-type: application/json');
+  $jsondata = file_get_contents('php://input');
+  $clientJSON = json_decode($jsondata,true);
+  
+  // Will render when someone visits server page (no client data/no post req)
+  if ($clientJSON['applicantName'] == null || $clientJSON['incomingUrl'] == null || $clientJSON['outgoingUrl'] == null) {
+    header('Content-type: text/html');
+    echo '<a href="https://simple-api-call.herokuapp.com/">Use the form website instead</a><br />';
+    die('No request was made');
+  }
 
   // This will customize how the incoming JSON obj values are stored/handled
   class User {
@@ -42,7 +55,7 @@
     }
   }
 
-  $incomingUrl = 'https://jsonplaceholder.typicode.com/users';
+  $incomingUrl = $clientJSON['incomingUrl'];
 
   $incomingJSON = file_get_contents($incomingUrl);
   $fullArr = json_decode($incomingJSON, true);
@@ -77,11 +90,11 @@
   }
   //echo json_encode($users); // Uncomment to display the custom obj
   
-  $dataObj = (object)array("applicant" => "Kevin Matos", "users" => $users);
+  $dataObj = (object)array("applicant" => $clientJSON['applicantName'], "users" => $users);
   $outgoingJSON = json_encode($dataObj);
   //echo $outgoingJSON . "\n"; // Uncomment to display the custom obj w/ applicant name
 
-  $outgoingUrl = 'https://scheduler.luminarycxm.com/api/v1/cleaned/data/test/';
+  $outgoingUrl = $clientJSON['outgoingUrl'];
 
   $curl = curl_init($outgoingUrl);
   curl_setopt($curl, CURLOPT_URL, $outgoingUrl);

@@ -1,2 +1,4 @@
 # simple-api-backend
-Takes in an incoming url to fetch data from an api. The incoming JSON file is then handled to fit new key-value pairs. The result is encoded back into a JSON string and sent to the outgoing url. The only thing displayed (as JSON content) is the response from the outgoing url
+- Takes in an incoming url to fetch data from an api. The incoming JSON file is then handled to fit new key-value pairs. The result is encoded back into a JSON string and sent to the outgoing url. The only thing displayed (as JSON content) is the response from the outgoing url
+
+- Previously, this data flow was hard coded and executed by itself. As of March 6 2021, this flow depends on a front end client. Visiting this server page will provide a link to the front end client to dynamically enter the Applicant Name portion of the data flow. While the two urls (incoming and outgoing) are retrieved from the client side, they are hard coded on the client side. 
